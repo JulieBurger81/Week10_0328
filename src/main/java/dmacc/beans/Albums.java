@@ -5,6 +5,8 @@
  */
 package dmacc.beans;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -13,10 +15,15 @@ import jakarta.persistence.Id;
 public class Albums {
 	@Id
 	@GeneratedValue
-	private long id;
+	private long albumId;
 	private String name;
 	private String artist;
 	private double length;
+	@Autowired
+	private Producers producer;
+	@Autowired
+	private Awards award;
+	
 	/**
 	 * 
 	 */
@@ -25,16 +32,27 @@ public class Albums {
 		setArtist("The Beatles");
 	}
 	/**
-	 * @return the id
+	 * @param name
+	 * @param artist
+	 * @param length
 	 */
-	public long getId() {
-		return id;
+	public Albums(String name, String artist, double length) {
+		super();
+		setName(name);
+		setArtist(artist);
+		setLength(length);
 	}
 	/**
-	 * @param id the id to set
+	 * @return the albumId
 	 */
-	public void setId(long id) {
-		this.id = id;
+	public long getAlbumId() {
+		return albumId;
+	}
+	/**
+	 * @param albumId the albumId to set
+	 */
+	public void setAlbumId(long albumId) {
+		this.albumId = albumId;
 	}
 	/**
 	 * @return the name
@@ -72,9 +90,33 @@ public class Albums {
 	public void setLength(double length) {
 		this.length = length;
 	}
+	/**
+	 * @return the producer
+	 */
+	public Producers getProducer() {
+		return producer;
+	}
+	/**
+	 * @param producer the producer to set
+	 */
+	public void setProducer(Producers producer) {
+		this.producer = producer;
+	}
+	/**
+	 * @return the award
+	 */
+	public Awards getAward() {
+		return award;
+	}
+	/**
+	 * @param award the award to set
+	 */
+	public void setAward(Awards award) {
+		this.award = award;
+	}
 	@Override
 	public String toString() {
-		return "Albums [id=" + id + ", name=" + name + ", artist=" + artist + ", length=" + length + "]";
+		return "Albums [albumId=" + albumId + ", name=" + name + ", artist=" + artist + ", length=" + length
+				+ ", producer=" + producer + "]";
 	}
-	
 }

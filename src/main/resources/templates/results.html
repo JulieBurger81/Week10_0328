@@ -11,11 +11,13 @@
 					<td th:text="${currentAlbum.name}" />
 					<td th:text="${currentAlbum.artist}" />
 					<td th:text="${currentAlbum.length}" />
-					<!-- <td th:text="${currentAlbum.address.steet}" /> 
-					<td th:text="${currentAlbum.address.city}" />
-					<td th:text="${currentAlbum.address.state}" /> -->
-					<td><a th:href="@{/edit/{id}(id=${currentAlbum.id})}">Edit</a></td>
-					<td><a th:href="@{/delete/{id}(id=${currentAlbum.id})}">Delete</a></td>
+					<td th:text="${currentAlbum.producer.company}" /> 
+					<td th:text="${currentAlbum.producer.headquarters}" />
+					<td th:text="${currentAlbum.producer.yearFounded}" />
+					<td th:text="${currentAlbum.award.title}" />
+					<td th:text="${currentAlbum.award.yearAwarded}" />
+					<td><a th:href="@{/edit/{albumId}(albumId=${currentAlbum.albumId})}">Edit</a></td>
+					<td><a th:href="@{/delete/{albumId}(albumId=${currentAlbum.albumId})}">Delete</a></td>
 				</tr>
 			</table>
 		</form>

@@ -1,22 +1,24 @@
 package dmacc;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+//import java.util.List;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
-
-import dmacc.beans.Albums;
-import dmacc.controller.BeanConfiguration;
-import dmacc.repository.AlbumsRepository;
+//import org.springframework.context.ApplicationContext;
+//import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+//import org.springframework.context.support.AbstractApplicationContext;
+//
+//import dmacc.beans.Albums;
+//import dmacc.beans.Awards;
+//import dmacc.beans.Producers;
+//import dmacc.controller.BeanConfiguration;
+//import dmacc.repository.AlbumsRepository;
 
 
 @SpringBootApplication
-public class SpringMvcAlbumsApplication  {  //implements CommandLineRunner
+public class SpringMvcAlbumsApplication {  //implements CommandLineRunner
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringMvcAlbumsApplication.class, args);
@@ -35,20 +37,32 @@ public class SpringMvcAlbumsApplication  {  //implements CommandLineRunner
 	}
 	/*
 	@Autowired
-	AlbumsRepository repo;
+	AlbumsRepository albumRepo;
 
 	@Override
 	public void run(String... args) throws Exception {
 		ApplicationContext appContext = new AnnotationConfigApplicationContext(BeanConfiguration.class);
-		
-		//Using an existing bean
+		//I'm getting an error when running this, but the table is set up correctly for my web purposes.
+		//Using an existing album bean
 		Albums a = appContext.getBean("albums", Albums.class);
+		System.out.println("Past Albums");
+		Producers p = appContext.getBean("producer", Producers.class);
+		System.out.println("Past Producer");
+		Awards ribbons = appContext.getBean("award", Awards.class);
+		System.out.println("Past ribbons");
 		a.setName("Abbey Road");
 		a.setLength(47.03);
-		repo.save(a);
+		p.setCompany("Capitol Records");
+		p.setHeadquarters("Los Angeles, CA");
+		p.setYearFounded(1942);
+		ribbons.setTitle("Grammy Award for Best Pop Vocol Album");
+		ribbons.setYearAwarded(1968);
+		a.setProducer(p);
+		a.setAward(ribbons);
+		System.out.println(a.toString());
+		albumRepo.save(a);
 		
-		List<Albums> allMyAlbums = repo.findAll();
-		System.out.println("retrieved it");
+		List<Albums> allMyAlbums = albumRepo.findAll();
 		for(Albums album: allMyAlbums) {
 			System.out.println(album.toString());
 		}

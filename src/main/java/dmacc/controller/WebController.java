@@ -19,14 +19,15 @@ import dmacc.repository.AlbumsRepository;
 @Controller
 public class WebController {
 	@Autowired
-	AlbumsRepository repo;
+	AlbumsRepository albumsRepo;
 	
 	@GetMapping({"/", "/viewAll"})
 	public String viewAllAlbums(Model model)	{
-		if(repo.findAll().isEmpty()) {
+		if(albumsRepo.findAll().isEmpty()) {
+			System.out.println("need to add new data");
 			return addNewAlbums(model);
 		}
-		model.addAttribute("albums", repo.findAll());
+		model.addAttribute("albums", albumsRepo.findAll());
 		return "results";
 	}
 	
@@ -39,27 +40,27 @@ public class WebController {
 	
 	@PostMapping("/inputAlbum") 
 	public String addNewAlbums(@ModelAttribute Albums a, Model model) {
-		repo.save(a);
+		albumsRepo.save(a);
 		return viewAllAlbums(model);
 	}
 	
-	@GetMapping("edit/{id}")
-	public String showUpdateAlbums(@PathVariable("id") long id, Model model) {
-		Albums a = repo.findById(id).orElse(null);
+	@GetMapping("edit/{albumId}")
+	public String showUpdateAlbums(@PathVariable("albumId") long albumId, Model model) {
+		Albums a = albumsRepo.findById(albumId).orElse(null);
 		model.addAttribute("newAlbum", a);
 		return "input";
 	}
 	
-	@PostMapping("/update/{id}")
+	@PostMapping("/update/{albumId}")
 	public String reviseAlbums(Albums a, Model model) {
-		repo.save(a);
+		albumsRepo.save(a);
 		return viewAllAlbums(model);
 	}
 	
-	@GetMapping("/delete/{id}")
-	public String deleteUser(@PathVariable("id") long id, Model model) {
-		Albums a = repo.findById(id).orElse(null);
-		repo.delete(a);
+	@GetMapping("/delete/{albumId}")
+	public String deleteUser(@PathVariable("albumId") long albumId, Model model) {
+		Albums a = albumsRepo.findById(albumId).orElse(null);
+		albumsRepo.delete(a);
 		return viewAllAlbums(model);
 	}
 }
