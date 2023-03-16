@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form>
+			<table>
+				<tr th:each="currentAlbum : ${albums}" >
+					<td th:text="${currentAlbum.name}" />
+					<td th:text="${currentAlbum.artist}" />
+					<td th:text="${currentAlbum.length}" />
+					<!-- <td th:text="${currentAlbum.address.steet}" /> 
+					<td th:text="${currentAlbum.address.city}" />
+					<td th:text="${currentAlbum.address.state}" /> -->
+					<td><a th:href="@{/edit/{id}(id=${currentAlbum.id})}">Edit</a></td>
+					<td><a th:href="@{/delete/{id}(id=${currentAlbum.id})}">Delete</a></td>
+				</tr>
+			</table>
+		</form>
+		<a href="../inputAlbum">Add a new Album</a>
+</body>
+</html>

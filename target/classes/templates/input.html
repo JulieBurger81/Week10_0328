@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<form th:object="${newAlbum}" th:action="@{/update/{id}(id=${newAlbum.id})}" method='POST'> <!--  th:action="@{/inputAlbum}" -->
+		Album Name: <input name="name" size="40" th:field="*{name}"> <br />
+		Artist: <input name="artist" size="10" th:field="*{artist}"><br />
+		Length: <input name="length" size="6" th:field="*{length}"><br />
+		<!-- Street: <input name="address.steet" size="20" th:field="*{address.steet}"><br />  
+		City: <input name="address.city" size="20" th:field="*{address.city}"><br />
+		State:<input name="address.state" size="20" th:field="*{address.state}"><br /> -->
+		<input name="submit" type="submit" value="submit" />
+	</form>
+	<a href="/viewAll">View all Albums</a>
+</body>
+</html>
