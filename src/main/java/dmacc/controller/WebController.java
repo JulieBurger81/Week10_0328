@@ -24,7 +24,6 @@ public class WebController {
 	@GetMapping({"/", "/viewAll"})
 	public String viewAllAlbums(Model model)	{
 		if(albumsRepo.findAll().isEmpty()) {
-			System.out.println("need to add new data");
 			return addNewAlbums(model);
 		}
 		model.addAttribute("albums", albumsRepo.findAll());
