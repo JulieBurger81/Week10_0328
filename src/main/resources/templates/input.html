@@ -2,18 +2,84 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Enter New Album Information</title>
+<script type = "text/javascript">
+		//Form validation code
+	function validate() {
+		if (document.forms["newAlbum"]["award.yearAwarded"].value == "0") {
+			var awardYear = "";
+		}else if(isNaN(document.forms["newAlbum"]["award.yearAwarded"].value)) {
+			var awardYear = "";
+		}else {
+			var awardYear = document.forms["newAlbum"]["award.yearAwarded"].value.toString();
+		}
+		if(document.forms["newAlbum"]["name"].value == "") {
+			alert("Album name is required.");
+			document.forms["newAlbum"]["name"].focus();
+			return false;
+		}
+		if(document.forms["newAlbum"]["artist"].value == "") {
+			alert("Artist is required.");
+			document.forms["newAlbum"]["artist"].focus();
+			return false;
+		}
+		if(isNaN(document.forms["newAlbum"]["length"].value)) {
+			alert("Album length should be in numbers.");
+			document.forms["newAlbum"]["length"].focus();
+			return false;
+		}
+		if(document.forms["newAlbum"]["length"].value <= 0.0) {
+			alert("Album length should greater than 0.0.");
+			document.forms["newAlbum"]["length"].focus();
+			return false;
+		}
+		if(document.forms["newAlbum"]["producer.company"].value == "") {
+			alert("The Producer's company name is a required field.");
+			document.forms["newAlbum"]["producer.company"].focus();
+			return false;
+		}
+		if(document.forms["newAlbum"]["producer.headquarters"].value == "") {
+			alert("The Producer's headquarter location is a required field.");
+			document.forms["newAlbum"]["producer.headquarters"].focus();
+			return false;
+		}
+		if(isNaN(document.forms["newAlbum"]["producer.yearFounded"].value)) {
+			alert("The Producer''s year founded is a required field.");
+			document.forms["newAlbum"]["producer.yearFounded"].focus();
+			return false;
+		}
+		if(document.forms["newAlbum"]["producer.yearFounded"].value < 1889) {
+			alert("Surely the producer was founded after 1889 (first album ever created).  Please enter a valid year.");
+			document.forms["newAlbum"]["producer.yearFounded"].focus();
+			return false;
+		}
+		if(document.forms["newAlbum"]["award.title"].value != "" && awardYear == "") {
+			alert("Since Award name has been provided, please enter the year awarded.");
+			document.forms["newAlbum"]["award.yearAwarded"].focus();
+			return false;
+		}
+		if(document.forms["newAlbum"]["award.title"].value == "" && awardYear != "") {
+			alert("Since Year awarded has been provided, please enter the Award name.");
+			document.forms["newAlbum"]["award.title"].focus();
+			return false;
+		}
+		return true;
+	}
+	
+	 
+</script>
 </head>
 <body>
-	<form th:object="${newAlbum}" th:action="@{/update/{albumId}(albumId=${newAlbum.albumId})}" method='POST'> <!--  "@{/inputAlbum}" -->
-		Album Name: <input name="name" size="40" th:field="*{name}"> <br />
+	<form name = "newAlbum" action = "/cgi-bin/test.cgi" onsubmit = "return(validate());"
+		th:object="${newAlbum}" th:action="@{/update/{albumId}(albumId=${newAlbum.albumId})}" method='POST'> <!--  "@{/inputAlbum}" -->
+		Album Name: <input name="name" size="40" th:field="*{name}" > <br />
 		Artist: <input name="artist" size="10" th:field="*{artist}"><br />
-		Length: <input name="length" size="6" th:field="*{length}"><br />
+		Length: <input type="number" step="0.01" name="length" size="6" th:field="*{length}"><br />
 		Producer: <input name="producer.company" size="20" th:field="*{producer.company}"><br />  
 		Headquarters: <input name="producer.headquarters" size="20" th:field="*{producer.headquarters}"><br />
-		Founded:<input name="producer.yearFounded" size="4" th:field="*{producer.yearFounded}"><br /> 
+		Founded:<input type="number" name="producer.yearFounded" size="4" th:field="*{producer.yearFounded}"><br /> 
 		Award:<input name="award.title" size="40" th:field="*{award.title}"><br />
-		Year Awarded:<input name="award.yearAwarded" size=4 th:field="*{award.yearAwarded}"><br />
+		Year Awarded:<input type="number" name="award.yearAwarded" size=4 th:field="*{award.yearAwarded}"><br />
 		<input name="submit" type="submit" value="submit" />
 	</form>
 	<a href="/viewAll">View all Albums</a>
